@@ -1,24 +1,33 @@
+import java.util.ArrayList;
 
 public class Sudoku {
-    private int[][] state = new int[9][9];
+    private final int[][] state = new int[9][9];
 
-    public void Sudoku(int[][] state) {
+    public Sudoku(int[][] state) {
         for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                this.state[i][j] = state[i][j];
-            }
+            System.arraycopy(state[i], 0, this.state[i], 0, 9);
         }
     }
 
-    public boolean checkIfCompleted() {
+    public boolean checkIfNoErrors() {
         return checkIfColumnsCompleted() &&
                 checkIfRowsCompleted() &&
                 checkIfSubgridsCompleted();
     }
 
     private boolean checkIfRowsCompleted() {
-        // TODO
-        return false;
+        ArrayList<Integer> buff = new ArrayList<>();
+        for (int[] row : state) {
+            for (int currentNum : row) {
+                if (currentNum == 0 || !buff.contains(currentNum)) {
+                    buff.add(currentNum);
+                } else {
+                    return false;
+                }
+            }
+            buff.clear();
+        }
+        return true;
     }
 
     private boolean checkIfColumnsCompleted() {
