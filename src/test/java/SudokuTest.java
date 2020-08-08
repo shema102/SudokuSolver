@@ -118,7 +118,8 @@ public class SudokuTest {
         };
 
         Sudoku sudoku = new Sudoku(hardestBoard);
-        int[][] solution = sudoku.solve();
+        sudoku.solve();
+        int[][] solution = sudoku.getState();
 
         for (int i = 0; i < solution.length; i++) {
             Assert.assertArrayEquals(solution[i], hardestSolved[i]);
