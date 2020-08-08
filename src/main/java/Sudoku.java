@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
 public class Sudoku {
-    private final int[][] state = new int[9][9];
+    private int[][] state = new int[9][9];
+
+    public int[][] getState() {
+        return state;
+    }
 
     public Sudoku(int[][] state) {
         for (int i = 0; i < 9; i++) {
@@ -75,9 +79,40 @@ public class Sudoku {
         return -1;
     }
 
-    public int[][] solve() {
-        // TODO
-        return this.state;
+    public boolean isValid(int row, int column) {
+        return checkIfRowPossible(row) &&
+                checkIfColumnPossible(column) &&
+                checkIfSubsectionPossible(row, column);
     }
 
+    public boolean solve() {
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                if (state[row][column] == 0) {
+                    for (int num = 1; num <= 9; num++) {
+                        state[row][column] = num;
+                        if (isValid(row, column) && solve()) {
+                            return true;
+                        }
+                        state[row][column] = 0;
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buf = new StringBuilder();
+        for (int[] row : state) {
+            for (int element : row) {
+                buf.append(element);
+                buf.append(" ");
+            }
+            buf.append("\n");
+        }
+        return buf.toString();
+    }
 }
