@@ -62,6 +62,32 @@ public class SudokuTest {
 
     @Test
     public void testSubsectionTester() {
+        int[][] test = new int[][]{
+                {1, 2, 3, 0, 0, 0, 1, 1, 1},
+                {4, 5, 6, 0, 0, 0, 1, 1, 1}, // possible, possible, not possible
+                {7, 8, 9, 0, 0, 0, 1, 1, 1},
+
+                {1, 4, 7, 0, 1, 0, 1, 2, 3},
+                {2, 5, 8, 0, 1, 0, 4, 5, 6}, // possible, not possible, not possible
+                {3, 6, 9, 0, 1, 0, 7, 8, 8},
+
+                {5, 2, 1, 9, 7, 4, 3, 6, 8},
+                {4, 3, 8, 5, 2, 6, 9, 1, 4}, // possible, possible, possible
+                {0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        Sudoku sudoku = new Sudoku(test);
+
+        Assert.assertTrue(sudoku.checkIfSubsectionPossible(0, 0));
+        Assert.assertTrue(sudoku.checkIfSubsectionPossible(1, 4));
+        Assert.assertTrue(sudoku.checkIfSubsectionPossible(3, 0));
+        Assert.assertTrue(sudoku.checkIfSubsectionPossible(6, 0));
+        Assert.assertTrue(sudoku.checkIfSubsectionPossible(7, 3));
+        Assert.assertTrue(sudoku.checkIfSubsectionPossible(8, 7));
+
+        Assert.assertFalse(sudoku.checkIfSubsectionPossible(0, 6));
+        Assert.assertFalse(sudoku.checkIfSubsectionPossible(3, 4));
+        Assert.assertFalse(sudoku.checkIfSubsectionPossible(4, 7));
 
     }
 
