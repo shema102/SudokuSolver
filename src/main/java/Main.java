@@ -1,5 +1,3 @@
-import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
 import java.util.Scanner;
 
 public class Main {
