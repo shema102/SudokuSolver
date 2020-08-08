@@ -9,35 +9,42 @@ public class Sudoku {
         }
     }
 
-    public boolean checkIfNoErrors() {
-        return checkIfColumnsCompleted() &&
-                checkIfRowsCompleted() &&
-                checkIfSubgridsCompleted();
-    }
-
-    private boolean checkIfRowsCompleted() {
+    public boolean checkIfRowPossible(int row) {
         ArrayList<Integer> buff = new ArrayList<>();
-        for (int[] row : state) {
-            for (int currentNum : row) {
-                if (currentNum == 0 || !buff.contains(currentNum)) {
-                    buff.add(currentNum);
-                } else {
-                    return false;
-                }
+        for (int currentPos : state[row]) {
+            if (currentPos == 0 || !buff.contains(currentPos)) {
+                buff.add(currentPos);
+            } else {
+                return false;
             }
-            buff.clear();
         }
+
         return true;
     }
 
-    private boolean checkIfColumnsCompleted() {
+    public boolean checkIfColumnPossible(int column) {
+        ArrayList<Integer> buff = new ArrayList<>();
+
+        for (int[] currentRow : state) {
+            int currentPos = currentRow[column];
+            if (currentPos == 0 || !buff.contains(currentPos)) {
+                buff.add(currentPos);
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean checkIfSubsectionPossible(int row, int column) {
         // TODO
         return false;
     }
 
-    private boolean checkIfSubgridsCompleted() {
+    public int[][] solve() {
         // TODO
-        return false;
+        return this.state;
     }
 
 }
